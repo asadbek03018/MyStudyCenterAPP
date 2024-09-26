@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+<head>
+    <title>{% block title %}{{ title }}{% endblock title %}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{% static 'home/assets/css/main.css' %}" />
+    <noscript><link rel="stylesheet" href="{% static 'home/assets/css/noscript.css' %}" /></noscript>
+    <link rel="stylesheet" href="{% static '/assets/vendor/fonts/boxicons.css' %}" />
+    <style>
+    /* Basic styling for card layout */
+    .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Kompyuterda 3 ta ustun */
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+        max-width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .card h5 {
+        margin-bottom: 15px;
+    }
+
+    .card-footer .btn {
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    .card-footer .btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Responsive behavior for smaller screens */
+    @media (max-width: 1024px) {
+        .container {
+            grid-template-columns: repeat(2, 1fr); /* Planshetlar uchun 2 ta ustun */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            grid-template-columns: 1fr; /* Mobil qurilmalar uchun bitta ustun */
+        }
+    }
+    </style>
+</head>
+<body class="landing">
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1 id="logo"><a href="{% url 'home' %}">My Study Center</a></h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="{% url 'home' %}">Bosh sahifa</a></li>
+                <li><a href="#">Qo'shimcha</a></li>
+                <li><a href="{% url 'vakansiyalar' %}">Vakansiyalar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Vacancy Section -->
+    <section class="wrapper style2 special fade">
+        <div class="container">
+            <header>
+                <h2>Vakansiyalar</h2>
+            </header>
+            <div class="row">
+                {% for vacancy in vacancys %}
+                <div class="card">
+                    <img src="{{ vacancy.image.url }}" alt="{{ vacancy.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ vacancy.name }}</h5>
+                        <p class="card-text">
+                            <strong>Ko'proq ma'lumot: </strong> {{vacancy.about}} <br>
+                            <strong>Kompaniya:</strong> {{ vacancy.company }} <br>
+                            <strong>Manzil:</strong> {{ vacancy.location }} <br>
+                            <strong>Ishlash vaqti:</strong> {{ vacancy.day_time }} <br>
+                            <strong>Oylik:</strong> {{ vacancy.price }} <br>
+                            <strong>Status:</strong> {% if vacancy.is_active %} Ishga qabul ochiq {% else %} Ishga qabul yopiq {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ vacancy.contact }}" class="btn"><i class='bx bxs-phone-call'></i> Bog'lanish</a>
+                    </div>
+                </div>
+                {% empty %}
+                <p>Hozirda hech qanday vakansiya yo'q.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <ul class="copyright">
+            <li>&copy; My Study Center 2024. Dev: Asadbek Abdubannopov All rights reserved.</li>
+        </ul>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="{% static 'home/assets/js/jquery.min.js' %}"></script>
+</body>
+</html>

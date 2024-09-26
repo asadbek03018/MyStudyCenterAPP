@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Our Team - Jamoa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            background:#eee;
+            margin-top:20px;
+        }
+        .img-thumbnail {
+            padding: .25rem;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 100%;
+            height: auto;
+        }
+        .social-link {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            border-radius: 50%;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="bg-dark text-white text-center py-3">
+    <div class="container">
+        <h1>Bizning Jamoa</h1>
+        <p class="lead">Bizning ishonchli va professional hamkorlarimiz</p>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Bosh sahifa</a></li>
+                <li class="nav-item"><a href="{% url 'team' %}" class="nav-link">Jamoa</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Kontakt</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-lg-5">
+            <h2 class="display-4 font-weight-light">Bizning Jamoa</h2>
+            <p class="font-italic text-muted">Sizning ishonchli hamkorlaringiz</p>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <!-- First Team Member -->
+        {% if teams.count == 0%}
+        <h2>Hali jamoa shakllanmagan😥!</h2>
+        {% endif %}
+        <br>
+        {% for team in teams %}
+        <div class="col-xl-3 col-sm-6 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-4">
+                <img src="{{team.profile_image.url}}" alt width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">{{team.full_name}}</h5><span class="small text-uppercase text-muted">{{team.work_title}}</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a href="{{team.facebook_link}}" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                    <li class="list-inline-item"><a href="{{team.twitter_link}}" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="{{team.instagram}}" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a href="{{team.linkedin}}" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        {% endfor %}
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p class="mb-0">© 2024 MyStudyCenter Jamoa. Barcha huquqlar himoyalangan.</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Maxfiylik</a></li>
+            <li class="list-inline-item"><a href="#">Foydalanish shartlari</a></li>
+        </ul>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
